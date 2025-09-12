@@ -25,3 +25,22 @@ CREATE DATABASE "MxcHomework"
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
+
+-- Table: public.Events
+
+-- DROP TABLE IF EXISTS public."Events";
+
+CREATE TABLE IF NOT EXISTS public."Events"
+(
+    "Id" integer NOT NULL,
+    "Name" text COLLATE pg_catalog."default",
+    "Location" text COLLATE pg_catalog."default",
+    "Country" text COLLATE pg_catalog."default",
+    "Capacity" integer,
+    CONSTRAINT "Events_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Events"
+    OWNER to "MxcHomeworkRole";
