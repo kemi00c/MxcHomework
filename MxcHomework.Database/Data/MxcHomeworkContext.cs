@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using MxcHomework.Database.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace MxcHomework.Database.Data;
 
-public partial class MxcHomeworkContext : DbContext
+public partial class MxcHomeworkContext : DbContext, IMxcHomeworkContext
 {
     public MxcHomeworkContext()
     {
@@ -19,8 +21,11 @@ public partial class MxcHomeworkContext : DbContext
     public virtual DbSet<Event> Events { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Username=MxcHomeworkRole;Password=Password;Database=MxcHomework");
+    {
+        var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        var connectionString = config.GetConnectionString("DefaultConnection");
+        optionsBuilder.UseNpgsql(connectionString);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
