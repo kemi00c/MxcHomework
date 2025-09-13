@@ -7,9 +7,9 @@ public partial class Event
 {
     public int Id { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; } = null!;
 
-    public string? Location { get; set; }
+    public string Location { get; set; } = null!;
 
     public string? Country { get; set; }
 

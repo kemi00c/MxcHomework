@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Configuration;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using MxcHomework.Database.Models;
 using Microsoft.Extensions.Configuration;
+using MxcHomework.Database.Models;
 
 namespace MxcHomework.Database.Data;
 
@@ -32,8 +31,6 @@ public partial class MxcHomeworkContext : DbContext, IMxcHomeworkContext
         modelBuilder.Entity<Event>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Events_pkey");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -47,7 +47,7 @@ namespace MxcHomework.Tests.Unit
             };
 
             var events = new List<Event> { event1, event2, event3 };
-            var mockDbSet = GetQueryableMockDbSet(events);
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
@@ -94,7 +94,7 @@ namespace MxcHomework.Tests.Unit
             };
 
             var events = new List<Event> { event1, event2, event3 };
-            var mockDbSet = GetQueryableMockDbSet(events);
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
@@ -141,7 +141,7 @@ namespace MxcHomework.Tests.Unit
             };
 
             var events = new List<Event> { event1, event2, event3 };
-            var mockDbSet = GetQueryableMockDbSet(events);
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
@@ -188,7 +188,7 @@ namespace MxcHomework.Tests.Unit
             };
 
             var events = new List<Event> { event1, event2, event3 };
-            var mockDbSet = GetQueryableMockDbSet(events);
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
@@ -235,7 +235,7 @@ namespace MxcHomework.Tests.Unit
             };
 
             var events = new List<Event> { event1, event2, event3 };
-            var mockDbSet = GetQueryableMockDbSet(events);
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
@@ -282,7 +282,7 @@ namespace MxcHomework.Tests.Unit
             };
 
             var events = new List<Event> { event1, event2, event3 };
-            var mockDbSet = GetQueryableMockDbSet(events);
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
@@ -329,7 +329,7 @@ namespace MxcHomework.Tests.Unit
             };
 
             var events = new List<Event> { event1, event2, event3 };
-            var mockDbSet = GetQueryableMockDbSet(events);
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
@@ -378,7 +378,7 @@ namespace MxcHomework.Tests.Unit
             };
 
             var events = new List<Event> { event1, event2, event3 };
-            var mockDbSet = GetQueryableMockDbSet(events);
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
@@ -426,7 +426,7 @@ namespace MxcHomework.Tests.Unit
             };
 
             var events = new List<Event> { event1, event2, event3 };
-            var mockDbSet = GetQueryableMockDbSet(events);
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
@@ -440,19 +440,6 @@ namespace MxcHomework.Tests.Unit
             Assert.IsNotNull(listedEvents);
             Assert.AreEqual(3, listedEvents.Count);
             Assert.AreEqual("EventC", listedEvents[0][0].Name);
-        }
-
-        private static DbSet<T> GetQueryableMockDbSet<T>(List<T> sourceList) where T : class
-        {
-            var queryable = sourceList.AsQueryable();
-
-            var dbSet = new Mock<DbSet<T>>();
-            dbSet.As<IQueryable<T>>().Setup(m => m.Provider).Returns(queryable.Provider);
-            dbSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(queryable.Expression);
-            dbSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
-            dbSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(() => queryable.GetEnumerator());
-
-            return dbSet.Object;
         }
     }
 }
