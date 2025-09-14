@@ -1,4 +1,6 @@
 
+using MxcHomework.Database.Data;
+
 namespace MxcHomework.Service
 {
     public class Program
@@ -13,6 +15,9 @@ namespace MxcHomework.Service
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // Inject database context dependency
+            builder.Services.AddScoped<IMxcHomeworkContext, MxcHomeworkContext>();
 
             var app = builder.Build();
 

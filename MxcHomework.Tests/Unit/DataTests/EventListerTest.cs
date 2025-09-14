@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace MxcHomework.Tests.Unit
+namespace MxcHomework.Tests.Unit.DataTests
 {
     [TestClass]
     public class EventListerTest
@@ -294,7 +294,7 @@ namespace MxcHomework.Tests.Unit
 
             // Assert
             Assert.IsNotNull(listedEvents);
-            Assert.AreEqual(3, listedEvents.Count); 
+            Assert.AreEqual(3, listedEvents.Count);
         }
 
         [TestMethod]

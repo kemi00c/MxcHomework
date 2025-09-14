@@ -28,3 +28,61 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 ## Data
 
 The MxcHomework.Data project is responsible for handling event data (adding, deleting, modifying and listing of events).
+
+## Service
+
+The MxcHomework.Service project contains the REST API endpoints for listing, modifying existing, adding new events or delete events.
+
+### Listing events
+
+The EventListController provides the functionality for listing events.
+
+The EventList/List endpoint provides a simple, unordered list of events
+The EventList/ListOrdered endpoint lists events ordered by a specified column in either ascending or descending order.
+
+The EventList/ListPaged and ListPagedOrdered endpoints provide unoredered and ordered lists in chunks of the specified page size.
+
+### Modifying existing events
+
+The EventModify/Modify endpoint provides the functionality to modify existing events. An event must be provided matching the following pattern:
+```json
+{
+  "id": 0,
+  "name": "string",
+  "location": "string",
+  "country": "string",
+  "capacity": 0
+}
+```
+If the event is invalid (name or location is empty, location is longer than 100 characters, or the capacity is not a positive number), Bad Request is returned.
+If the event with the specified ID not found, Not Found is returned, otherwise the event is modified.
+
+### Adding new events
+
+The EventAdd/Add endpoint provides the functionality to add new events to the database.
+An event must be provided, matching the following pattern:
+```json
+{
+  "id": 0,
+  "name": "string",
+  "location": "string",
+  "country": "string",
+  "capacity": 0
+}
+```
+If the event is invalid (name or location is empty, location is longer than 100 characters, or the capacity is not a positive number), Bad Request is returned, otherwise the event is inserted into the database.
+
+### Deleting events
+
+The EventDelete/Delete endpoint provides deleting existing events. To avoid accidental deletion the full event has to be provided matching the following pattern:
+```json
+{
+  "id": 0,
+  "name": "string",
+  "location": "string",
+  "country": "string",
+  "capacity": 0
+}
+```
+If the event is invalid (name or location is empty, location is longer than 100 characters, or the capacity is not a positive number), Bad Request is returned.
+If the event with the specified ID not found, Not Found is returned, otherwise the event is deleted.

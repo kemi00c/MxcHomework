@@ -26,5 +26,19 @@ namespace MxcHomework.Tests.Integration
             // Assert
             Assert.IsInstanceOfType(events, typeof(List<Event>));
         }
+
+        [TestMethod]
+        public void ListEventsOrdered()
+        {
+            // Arrange
+            var context = new MxcHomeworkContext();
+            var lister = new EventLister(context);
+
+            // Act
+            var events = lister.ListEvents("Name");
+
+            // Assert
+            Assert.IsInstanceOfType(events, typeof(List<Event>));
+        }
     }
 }
