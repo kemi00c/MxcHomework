@@ -20,6 +20,7 @@ namespace MxcHomework.Tests.Unit
             dbSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
             dbSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(() => queryable.GetEnumerator());
             dbSet.Setup(m => m.Add(It.IsAny<T>()));
+            dbSet.Setup(m => m.Remove(It.IsAny<T>()));
 
             return dbSet;
         }

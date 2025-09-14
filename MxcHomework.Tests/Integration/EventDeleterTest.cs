@@ -11,14 +11,14 @@ namespace MxcHomework.Tests.Integration
 {
     // The access modifier of this integration test class is set to internal to exclude it from CI/CD test runs. Change it to public to enable test discovery.
     [TestClass]
-    internal class EventModifierTest
+    internal class EventDeleterTest
     {
         [TestMethod]
-        internal void ModifyEvent()
+        public void DeleteEvent()
         {
             // Arrange
             var context = new MxcHomeworkContext();
-            var modifier = new EventModifier(context);
+            var deleter = new EventDeleter(context);
             var e = new Event
             {
                 Id = 1,
@@ -29,7 +29,7 @@ namespace MxcHomework.Tests.Integration
             };
 
             // Act & Assert
-            modifier.Modify(e);
+            deleter.Delete(e);
         }
     }
 }
