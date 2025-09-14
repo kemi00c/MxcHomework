@@ -43,11 +43,11 @@ namespace MxcHomework.Data
 
             if (ascending)
             {
-                return _context.Events.OrderBy(e => prop.GetValue(e)).ToList();
+                return _context.Events.AsEnumerable().OrderBy(e => prop.GetValue(e)).ToList();
             }
             else
             {
-                return _context.Events.OrderByDescending(e => prop.GetValue(e)).ToList();
+                return _context.Events.AsEnumerable().OrderByDescending(e => prop.GetValue(e)).ToList();
             }
         }
 
@@ -90,11 +90,11 @@ namespace MxcHomework.Data
 
             if (ascending)
             {
-                events = _context.Events.OrderBy(e => prop.GetValue(e)).ToList();
+                events = _context.Events.AsEnumerable().OrderBy(e => prop.GetValue(e)).ToList();
             }
             else
             {
-                events = _context.Events.OrderByDescending(e => prop.GetValue(e)).ToList();
+                events = _context.Events.AsEnumerable().OrderByDescending(e => prop.GetValue(e)).ToList();
             }
 
 
