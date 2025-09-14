@@ -37,7 +37,7 @@ namespace MxcHomework.Data
                 throw new EventValidatorException("Mandatory field, Location is empty");
             }
 
-            if (_event.Location.Length >= 100)
+            if (_event.Location.Length > 100)
             {
                 throw new EventValidatorException("Location field is longer than the maximum allowed 100 characters.");
             }
