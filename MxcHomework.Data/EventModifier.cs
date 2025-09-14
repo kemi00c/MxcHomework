@@ -20,6 +20,11 @@ namespace MxcHomework.Data
             _context = context;
         }
 
+        /// <summary>
+        /// Modify an event. A valid Event object must be provided, whose ID is searched in the database, and the properties are replaced with the ones provided.
+        /// </summary>
+        /// <param name="newEvent">An Event object with the ID to search and the properties to replace</param>
+        /// <exception cref="ArgumentException"></exception>
         public void Modify(Event newEvent)
         {
             var e = _context.Events.Where(x => x.Id == newEvent.Id).FirstOrDefault();

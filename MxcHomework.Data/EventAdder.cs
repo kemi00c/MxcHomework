@@ -19,6 +19,10 @@ namespace MxcHomework.Data
             _context = context;
         }
 
+        /// <summary>
+        /// Add an event
+        /// </summary>
+        /// <param name="e">The event to add</param>
         public void Add(Event e)
         {
             var validator = new EventValidator(e);

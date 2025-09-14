@@ -19,6 +19,11 @@ namespace MxcHomework.Data
             _context = context;
         }
 
+        /// <summary>
+        /// Delete an event. The provided Event must be valid, its ID is searched in the database and deleted.
+        /// </summary>
+        /// <param name="e">The Event to delete</param>
+        /// <exception cref="ArgumentException"></exception>
         public void Delete(Event e)
         {
             var validator = new EventValidator(e);

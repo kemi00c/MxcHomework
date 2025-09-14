@@ -24,3 +24,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     optionsBuilder.UseNpgsql(connectionString);
 }
 ```
+
+## Data
+
+The MxcHomework.Data project is responsible for handling event data (adding, deleting, modifying and listing of events).
