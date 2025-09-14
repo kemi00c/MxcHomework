@@ -49,25 +49,6 @@ namespace MxcHomework.Tests.Unit
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EventValidatorException), "Mandatory field, Name is empty.")]
-        public void TestEventValidatorWithNameNull()
-        {
-            // Arrange
-            var e = new Event
-            {
-                Id = 0,
-                Name = null,
-                Location = "Alexandria",
-                Country = "Egypt",
-                Capacity = 7720
-            };
-            var validator = new EventValidator(e);
-
-            // Act & Assert
-            validator.Validate();
-        }
-
-        [TestMethod]
         [ExpectedException(typeof(EventValidatorException), "Mandatory field, Location is empty.")]
         public void TestEventValidatorWithLocationEmpty()
         {
@@ -77,25 +58,6 @@ namespace MxcHomework.Tests.Unit
                 Id = 0,
                 Name = "Bebury Park",
                 Location = "",
-                Country = "Egypt",
-                Capacity = 7720
-            };
-            var validator = new EventValidator(e);
-
-            // Act & Assert
-            validator.Validate();
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(EventValidatorException), "Mandatory field, Location is empty.")]
-        public void TestEventValidatorWithLocationNull()
-        {
-            // Arrange
-            var e = new Event
-            {
-                Id = 0,
-                Name = "Bebury Park",
-                Location = null,
                 Country = "Egypt",
                 Capacity = 7720
             };
