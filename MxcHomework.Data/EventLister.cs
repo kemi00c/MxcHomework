@@ -86,7 +86,7 @@ namespace MxcHomework.Data
                 throw new ArgumentException($"No property {columnName} found.");
             }
 
-            List<Event> events = null;
+            List<Event> events;
 
             if (ascending)
             {
