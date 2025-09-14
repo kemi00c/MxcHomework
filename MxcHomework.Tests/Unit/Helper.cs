@@ -10,7 +10,7 @@ namespace MxcHomework.Tests.Unit
 {
     internal static class Helper
     {
-        public static DbSet<T> GetQueryableMockDbSet<T>(List<T> sourceList) where T : class
+        public static Mock<DbSet<T>> GetQueryableMockDbSet<T>(List<T> sourceList) where T : class
         {
             var queryable = sourceList.AsQueryable();
 
@@ -19,8 +19,9 @@ namespace MxcHomework.Tests.Unit
             dbSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(queryable.Expression);
             dbSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
             dbSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(() => queryable.GetEnumerator());
+            dbSet.Setup(m => m.Add(It.IsAny<T>()));
 
-            return dbSet.Object;
+            return dbSet;
         }
     }
 }

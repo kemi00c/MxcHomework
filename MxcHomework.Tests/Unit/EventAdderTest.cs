@@ -22,7 +22,7 @@ namespace MxcHomework.Tests.Unit
             var events = new List<Event>();
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var adder = new EventAdder(mockContext.Object);
             var e = new Event
@@ -38,6 +38,7 @@ namespace MxcHomework.Tests.Unit
 
             // Assert
             // If the event is valid, event is added, and if no errors occured during adding, no exception is thrown
+            mockDbSet.Verify(m => m.Add(It.IsAny<Event>()), Times.Once);
         }
 
         [TestMethod]
@@ -49,7 +50,7 @@ namespace MxcHomework.Tests.Unit
             var events = new List<Event>();
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var adder = new EventAdder(mockContext.Object);
             var e = new Event
@@ -65,6 +66,7 @@ namespace MxcHomework.Tests.Unit
 
             // Assert
             // Invalid event, EventValidationException thrown, no event added.
+            mockDbSet.Verify(m => m.Add(It.IsAny<Event>()), Times.Never);
 
         }
 

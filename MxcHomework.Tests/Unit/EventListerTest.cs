@@ -50,7 +50,7 @@ namespace MxcHomework.Tests.Unit
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var lister = new EventLister(mockContext.Object);
 
@@ -97,7 +97,7 @@ namespace MxcHomework.Tests.Unit
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var lister = new EventLister(mockContext.Object);
 
@@ -144,7 +144,7 @@ namespace MxcHomework.Tests.Unit
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var lister = new EventLister(mockContext.Object);
 
@@ -191,7 +191,7 @@ namespace MxcHomework.Tests.Unit
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var lister = new EventLister(mockContext.Object);
 
@@ -238,7 +238,7 @@ namespace MxcHomework.Tests.Unit
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var lister = new EventLister(mockContext.Object);
 
@@ -285,7 +285,7 @@ namespace MxcHomework.Tests.Unit
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var lister = new EventLister(mockContext.Object);
 
@@ -332,7 +332,7 @@ namespace MxcHomework.Tests.Unit
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var lister = new EventLister(mockContext.Object);
 
@@ -381,7 +381,7 @@ namespace MxcHomework.Tests.Unit
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var lister = new EventLister(mockContext.Object);
 
@@ -429,7 +429,7 @@ namespace MxcHomework.Tests.Unit
             var mockDbSet = Helper.GetQueryableMockDbSet(events);
 
             var mockContext = new Mock<IMxcHomeworkContext>();
-            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet);
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
             var lister = new EventLister(mockContext.Object);
 
