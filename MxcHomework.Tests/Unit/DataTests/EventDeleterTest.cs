@@ -8,15 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MxcHomework.Tests.Unit
+namespace MxcHomework.Tests.Unit.DataTests
 {
     [TestClass]
-    public class EventModifierTest
+    public class EventDeleterTest
     {
         [TestMethod]
-        public void ModifyEvent()
+        public void DeleteEvent()
         {
             // Arrange
+
             var event1 = new Event
             {
                 Id = 0,
@@ -49,29 +50,30 @@ namespace MxcHomework.Tests.Unit
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
-            var modifier = new EventModifier(mockContext.Object);
-            var newEvent = new Event
+            var deleter = new EventDeleter(mockContext.Object);
+            var eventToDelete = new Event
             {
                 Id = 0,
-                Name = "EventD",
+                Name = "EventB",
                 Location = "TestLocation",
                 Country = "TestCountry",
-                Capacity = 400
+                Capacity = 300
             };
 
             // Act
-            modifier.Modify(newEvent);
+            deleter.Delete(eventToDelete);
 
             // Assert
-            // Event is found and valid, gets modified
-            Assert.AreEqual("EventD", events[0].Name);
+            // Event found and valid, it gets deleted
+            mockDbSet.Verify(m => m.Remove(It.IsAny<Event>()), Times.Once);
         }
 
         [TestMethod]
         [ExpectedException(typeof(EventValidatorException))]
-        public void ModifyEventInvalid()
+        public void DeleteEventInvalid()
         {
             // Arrange
+
             var event1 = new Event
             {
                 Id = 0,
@@ -104,29 +106,30 @@ namespace MxcHomework.Tests.Unit
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
-            var modifier = new EventModifier(mockContext.Object);
-            var newEvent = new Event
+            var deleter = new EventDeleter(mockContext.Object);
+            var eventToDelete = new Event
             {
                 Id = 0,
                 Name = "",
                 Location = "TestLocation",
                 Country = "TestCountry",
-                Capacity = 400
+                Capacity = 300
             };
 
             // Act
-            modifier.Modify(newEvent);
+            deleter.Delete(eventToDelete);
 
             // Assert
-            // Event is found with ID, but the request is invalid. No modification occurs, EventValidatorException thrown
-            Assert.AreNotEqual("EventD", events[0].Name);
+            // Event is invalid, validator fails with an EventValidatorException .
+            mockDbSet.Verify(m => m.Remove(It.IsAny<Event>()), Times.Never);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void ModifyEventNotFound()
+        public void DeleteEventNotFound()
         {
             // Arrange
+
             var event1 = new Event
             {
                 Id = 0,
@@ -159,22 +162,22 @@ namespace MxcHomework.Tests.Unit
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
-            var modifier = new EventModifier(mockContext.Object);
-            var newEvent = new Event
+            var deleter = new EventDeleter(mockContext.Object);
+            var eventToDelete = new Event
             {
                 Id = 3,
                 Name = "EventD",
                 Location = "TestLocation",
                 Country = "TestCountry",
-                Capacity = 400
+                Capacity = 300
             };
 
             // Act
-            modifier.Modify(newEvent);
+            deleter.Delete(eventToDelete);
 
             // Assert
-            // Event not found, no modification occurs, ArgumentException thrown
-            Assert.AreNotEqual("EventD", events[0].Name);
+            // Event to delete not found, ArgumentException is thrown.
+            mockDbSet.Verify(m => m.Remove(It.IsAny<Event>()), Times.Never);
         }
     }
 }

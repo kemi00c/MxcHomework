@@ -1,17 +1,18 @@
-﻿using Moq;
-using MxcHomework.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using Moq;
 using MxcHomework.Database.Data;
 using MxcHomework.Database.Models;
+using MxcHomework.Service.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MxcHomework.Tests.Unit
+namespace MxcHomework.Tests.Unit.ControllerTests
 {
     [TestClass]
-    public class EventDeleterTest
+    public class EventDeleteControllerTest
     {
         [TestMethod]
         public void DeleteEvent()
@@ -50,7 +51,7 @@ namespace MxcHomework.Tests.Unit
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
-            var deleter = new EventDeleter(mockContext.Object);
+            var controller = new EventDeleteController(mockContext.Object);
             var eventToDelete = new Event
             {
                 Id = 0,
@@ -61,15 +62,15 @@ namespace MxcHomework.Tests.Unit
             };
 
             // Act
-            deleter.Delete(eventToDelete);
+            var result = controller.DeleteEvent(eventToDelete);
 
             // Assert
             // Event found and valid, it gets deleted
             mockDbSet.Verify(m => m.Remove(It.IsAny<Event>()), Times.Once);
+            Assert.IsInstanceOfType(result, typeof(OkResult));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EventValidatorException))]
         public void DeleteEventInvalid()
         {
             // Arrange
@@ -106,7 +107,7 @@ namespace MxcHomework.Tests.Unit
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
-            var deleter = new EventDeleter(mockContext.Object);
+            var controller = new EventDeleteController(mockContext.Object);
             var eventToDelete = new Event
             {
                 Id = 0,
@@ -117,15 +118,15 @@ namespace MxcHomework.Tests.Unit
             };
 
             // Act
-            deleter.Delete(eventToDelete);
+            var result = controller.DeleteEvent(eventToDelete);
 
             // Assert
-            // Event is invalid, validator fails with an EventValidatorException .
+            // Event is invalid, Bad Request returned.
             mockDbSet.Verify(m => m.Remove(It.IsAny<Event>()), Times.Never);
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void DeleteEventNotFound()
         {
             // Arrange
@@ -162,7 +163,7 @@ namespace MxcHomework.Tests.Unit
             var mockContext = new Mock<IMxcHomeworkContext>();
             mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
 
-            var deleter = new EventDeleter(mockContext.Object);
+            var controller = new EventDeleteController(mockContext.Object);
             var eventToDelete = new Event
             {
                 Id = 3,
@@ -173,11 +174,12 @@ namespace MxcHomework.Tests.Unit
             };
 
             // Act
-            deleter.Delete(eventToDelete);
+            var result = controller.DeleteEvent(eventToDelete);
 
             // Assert
-            // Event to delete not found, ArgumentException is thrown.
+            // Event to delete not found, Not Found returned.
             mockDbSet.Verify(m => m.Remove(It.IsAny<Event>()), Times.Never);
+            Assert.IsInstanceOfType(result, typeof(NotFoundObjectResult));
         }
     }
 }
