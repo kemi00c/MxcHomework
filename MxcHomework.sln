@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MxcHomework.Service", "MxcH
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MxcHomework.Tests", "MxcHomework.Tests\MxcHomework.Tests.csproj", "{BEFB609E-F0CD-4BFB-BECE-27E91ABF4B51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MxcHomework.Database", "MxcHomework.Database\MxcHomework.Database.csproj", "{B2312B72-A525-4463-9E04-8FB6A39D7873}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MxcHomework.Database", "MxcHomework.Database\MxcHomework.Database.csproj", "{B2312B72-A525-4463-9E04-8FB6A39D7873}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MxcHomework.Data", "MxcHomework.Data\MxcHomework.Data.csproj", "{4A21E68D-E144-4987-8948-E22E50BD8749}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{B2312B72-A525-4463-9E04-8FB6A39D7873}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2312B72-A525-4463-9E04-8FB6A39D7873}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2312B72-A525-4463-9E04-8FB6A39D7873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A21E68D-E144-4987-8948-E22E50BD8749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A21E68D-E144-4987-8948-E22E50BD8749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A21E68D-E144-4987-8948-E22E50BD8749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A21E68D-E144-4987-8948-E22E50BD8749}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

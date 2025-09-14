@@ -32,9 +32,9 @@ CREATE DATABASE "MxcHomework"
 
 CREATE TABLE IF NOT EXISTS public."Events"
 (
-    "Id" integer NOT NULL,
-    "Name" text COLLATE pg_catalog."default",
-    "Location" text COLLATE pg_catalog."default",
+    "Id" integer NOT NULL DEFAULT nextval('"Events_Id_seq"'::regclass),
+    "Name" text COLLATE pg_catalog."default" NOT NULL,
+    "Location" text COLLATE pg_catalog."default" NOT NULL,
     "Country" text COLLATE pg_catalog."default",
     "Capacity" integer,
     CONSTRAINT "Events_pkey" PRIMARY KEY ("Id")
