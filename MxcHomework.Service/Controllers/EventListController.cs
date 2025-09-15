@@ -7,7 +7,7 @@ namespace MxcHomework.Service.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EventListController
+    public class EventListController : ControllerBase
     {
         private readonly IMxcHomeworkContext _context;
         public EventListController(IMxcHomeworkContext context)
@@ -30,17 +30,31 @@ namespace MxcHomework.Service.Controllers
         }
 
         [HttpGet("ListPaged")]
-        public List<List<Event>> ListEventsPaged(int pageSize)
+        public ObjectResult ListEventsPaged(int pageSize, int page)
         {
             var lister = new EventLister(_context);
-            return lister.ListEventsPaged(pageSize);
+            try
+            {
+                return Ok(lister.ListEventsPaged(pageSize, page));
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return NotFound(ex.ToString());
+            }
         }
 
         [HttpGet("ListPagedOrdered")]
-        public List<List<Event>> ListEventsPagedOrdered(int pageSize, string columnName, bool ascending = true)
+        public ObjectResult ListEventsPagedOrdered(int pageSize, int page, string columnName, bool ascending = true)
         {
             var lister = new EventLister(_context);
-            return lister.ListEventsPaged(pageSize, columnName, ascending);
+            try
+            {
+                return Ok(lister.ListEventsPaged(pageSize, page, columnName, ascending));
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return NotFound(ex.ToString());
+            }
         }
     }
 }

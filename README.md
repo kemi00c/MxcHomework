@@ -40,7 +40,7 @@ The EventListController provides the functionality for listing events.
 The EventList/List endpoint provides a simple, unordered list of events
 The EventList/ListOrdered endpoint lists events ordered by a specified column in either ascending or descending order.
 
-The EventList/ListPaged and ListPagedOrdered endpoints provide unoredered and ordered lists in chunks of the specified page size.
+The EventList/ListPaged and ListPagedOrdered endpoints provide unoredered and ordered lists in chunks of the specified page size. The provided page number in the "page" argument is returned. If page is out of range, Not Found is returned.
 
 ### Modifying existing events
 

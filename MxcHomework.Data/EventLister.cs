@@ -56,7 +56,7 @@ namespace MxcHomework.Data
         /// </summary>
         /// <param name="pageSize">Page size</param>
         /// <returns></returns>
-        public List<List<Event>> ListEventsPaged(int pageSize)
+        public List<Event> ListEventsPaged(int pageSize, int page)
         {
             var pages = new List<List<Event>>();
 
@@ -67,7 +67,7 @@ namespace MxcHomework.Data
                 pages.Add(events.GetRange(i, Math.Min(pageSize, events.Count - i)));
             }
 
-            return pages;
+            return pages[page];
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace MxcHomework.Data
         /// <param name="ascending">If true, the returned list is ordered ascending or descending otherwise</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public List<List<Event>> ListEventsPaged(int pageSize, string columnName, bool ascending = true)
+        public List<Event> ListEventsPaged(int pageSize, int page, string columnName, bool ascending = true)
         {
             var prop = typeof(Event).GetProperty(columnName);
             if (prop == null)
@@ -106,7 +106,7 @@ namespace MxcHomework.Data
                 pages.Add(events.GetRange(i, Math.Min(pageSize, events.Count - i)));
             }
 
-            return pages;
+            return pages[page];
         }
     }
 }
