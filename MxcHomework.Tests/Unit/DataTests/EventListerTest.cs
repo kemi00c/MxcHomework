@@ -1,14 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
-using Moq;
+﻿using Moq;
 using MxcHomework.Database.Data;
 using MxcHomework.Database.Models;
 using MxcHomework.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace MxcHomework.Tests.Unit.DataTests
 {

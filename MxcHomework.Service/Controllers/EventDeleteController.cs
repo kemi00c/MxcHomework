@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using MxcHomework.Data;
 using MxcHomework.Database.Data;
 using MxcHomework.Database.Models;
@@ -17,6 +16,13 @@ namespace MxcHomework.Service.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Removes an event from the database. The provided event is searched in the database, if found it is removed and OK is returned.
+        /// If the event is invalid Bad Request is returned.
+        /// If the event is not found, Not Found is returned.
+        /// </summary>
+        /// <param name="e">The event to delete</param>
+        /// <returns></returns>
         [HttpDelete("Delete")]
         public ActionResult DeleteEvent(Event e)
         {

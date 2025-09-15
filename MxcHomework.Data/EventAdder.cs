@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MxcHomework.Database.Data;
 using MxcHomework.Database.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MxcHomework.Data
 {
@@ -33,7 +28,7 @@ namespace MxcHomework.Data
             {
                 ((DbContext)_context).SaveChanges();
             }
-            catch (InvalidCastException ex)
+            catch (InvalidCastException ex) // Catching InvalidCastException, because casting fails if a mocked context is provided
             {
                 Logger.Warn(ex);
             }

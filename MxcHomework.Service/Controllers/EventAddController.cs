@@ -16,6 +16,12 @@ namespace MxcHomework.Service.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Add an event. The event is validated, if it is valid, it is added to the database, HTTP OK is returned.
+        /// If the event is invalid HTTP Bad Request is returned
+        /// </summary>
+        /// <param name="e">The event to add</param>
+        /// <returns></returns>
         [HttpPost("Add")]
         public ActionResult AddEvent(Event e)
         {
