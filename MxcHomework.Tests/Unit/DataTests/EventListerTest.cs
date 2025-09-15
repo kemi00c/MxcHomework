@@ -298,9 +298,9 @@ namespace MxcHomework.Tests.Unit.DataTests
 
             try
             {
-                var page4 = lister.ListEventsPaged(1, 3);
+                lister.ListEventsPaged(1, 3);
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (ArgumentOutOfRangeException)
             {
                 outOfRangeExceptionThrown = true;
             }
@@ -357,7 +357,7 @@ namespace MxcHomework.Tests.Unit.DataTests
             var page2 = lister.ListEventsPaged(2, 1);
             try
             {
-                var page3 = lister.ListEventsPaged(2, 2);
+                lister.ListEventsPaged(2, 2);
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -479,7 +479,7 @@ namespace MxcHomework.Tests.Unit.DataTests
 
             try
             {
-                var page4 = lister.ListEventsPaged(1, 3, "Name", false);
+                lister.ListEventsPaged(1, 3, "Name", false);
             }
             catch (ArgumentOutOfRangeException)
             {
