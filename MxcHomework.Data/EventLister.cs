@@ -1,10 +1,5 @@
 ﻿using MxcHomework.Database.Data;
 using MxcHomework.Database.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MxcHomework.Data
 {
@@ -52,9 +47,10 @@ namespace MxcHomework.Data
         }
 
         /// <summary>
-        /// Return all events in pages of a specified size
+        /// Return all events in pages of a specified size, returns the page number provided in the "page" argument
         /// </summary>
         /// <param name="pageSize">Page size</param>
+        /// <param name="page">The page to return</param>
         /// <returns></returns>
         public List<Event> ListEventsPaged(int pageSize, int page)
         {
@@ -71,9 +67,10 @@ namespace MxcHomework.Data
         }
 
         /// <summary>
-        /// List all events, order by a specified column name, create a paged list of a specified size
+        /// List all events, order by a specified column name, create a paged list of a specified size returns the page number provided in the "page" argument
         /// </summary>
         /// <param name="pageSize">Page size</param>
+        /// <param name="page">The page to return</param>
         /// <param name="columnName">The column name to order by</param>
         /// <param name="ascending">If true, the returned list is ordered ascending or descending otherwise</param>
         /// <returns></returns>

@@ -1,4 +1,3 @@
-
 using MxcHomework.Database.Data;
 
 namespace MxcHomework.Service

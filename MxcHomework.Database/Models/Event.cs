@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MxcHomework.Database.Models;
+﻿namespace MxcHomework.Database.Models;
 
 public partial class Event
 {
