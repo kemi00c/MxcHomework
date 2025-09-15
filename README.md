@@ -40,7 +40,7 @@ The EventListController provides the functionality for listing events.
 The EventList/List endpoint provides a simple, unordered list of events
 The EventList/ListOrdered endpoint lists events ordered by a specified column in either ascending or descending order.
 
-The EventList/ListPaged and ListPagedOrdered endpoints provide unoredered and ordered lists in chunks of the specified page size.
+The EventList/ListPaged and ListPagedOrdered endpoints provide unoredered and ordered lists in chunks of the specified page size. The provided page number in the "page" argument is returned. If page is out of range, Not Found is returned.
 
 ### Modifying existing events
 
@@ -86,3 +86,9 @@ The EventDelete/Delete endpoint provides deleting existing events. To avoid acci
 ```
 If the event is invalid (name or location is empty, location is longer than 100 characters, or the capacity is not a positive number), Bad Request is returned.
 If the event with the specified ID not found, Not Found is returned, otherwise the event is deleted.
+
+## UI
+
+A simple web UI is created to demonstrate the features of the API. The website can be hosted in a local developer server (for example Live Server in Visual Studio Code), and must listen at port 5500, because the API's CORS configuration.
+The index.html lists events fetched from the database, which can be sorted on any specific column. New events can be created or existing ones can be modified or deleted from this page.
+The edit.html page provides the input for modifying existing or creating new events.

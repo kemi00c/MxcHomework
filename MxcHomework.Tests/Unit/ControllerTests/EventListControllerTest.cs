@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Moq;
 using MxcHomework.Data;
 using MxcHomework.Database.Data;
 using MxcHomework.Database.Models;
@@ -289,11 +290,16 @@ namespace MxcHomework.Tests.Unit.ControllerTests
             var controller = new EventListController(mockContext.Object);
 
             // Act
-            var listedEvents = controller.ListEventsPaged(1);
+            var page1 = controller.ListEventsPaged(1, 0).Value;
+            var page2 = controller.ListEventsPaged(1, 1).Value;
+            var page3 = controller.ListEventsPaged(1, 2).Value;
+            var page4 = controller.ListEventsPaged(1, 3);
 
             // Assert
-            Assert.IsNotNull(listedEvents);
-            Assert.AreEqual(3, listedEvents.Count);
+            Assert.IsNotNull(page1);
+            Assert.IsNotNull(page2);
+            Assert.IsNotNull(page3);
+            Assert.IsInstanceOfType(page4, typeof(NotFoundObjectResult));
         }
 
         [TestMethod]
@@ -336,13 +342,16 @@ namespace MxcHomework.Tests.Unit.ControllerTests
             var controller = new EventListController(mockContext.Object);
 
             // Act
-            var listedEvents = controller.ListEventsPaged(2);
+            var page1 = (List<Event>?)controller.ListEventsPaged(2, 0).Value;
+            var page2 = (List<Event>?)controller.ListEventsPaged(2, 1).Value;
+            var page3 = controller.ListEventsPaged(2, 2);
 
             // Assert
-            Assert.IsNotNull(listedEvents);
-            Assert.AreEqual(2, listedEvents.Count);
-            Assert.AreEqual(2, listedEvents[0].Count);
-            Assert.AreEqual(1, listedEvents[1].Count);
+            Assert.IsNotNull(page1);
+            Assert.IsNotNull(page2);
+            Assert.IsInstanceOfType(page3, typeof(NotFoundObjectResult));
+            Assert.AreEqual(2, page1.Count);
+            Assert.AreEqual(1, page2.Count);
         }
 
         [TestMethod]
@@ -385,12 +394,17 @@ namespace MxcHomework.Tests.Unit.ControllerTests
             var controller = new EventListController(mockContext.Object);
 
             // Act
-            var listedEvents = controller.ListEventsPagedOrdered(1, "Name");
+            var page1 = (List<Event>?)controller.ListEventsPagedOrdered(1, 0, "Name").Value;
+            var page2 = (List<Event>?)controller.ListEventsPagedOrdered(1, 1, "Name").Value;
+            var page3 = (List<Event>?)controller.ListEventsPagedOrdered(1, 2, "Name").Value;
+            var page4 = controller.ListEventsPagedOrdered(1, 3, "Name");
 
             // Assert
-            Assert.IsNotNull(listedEvents);
-            Assert.AreEqual(3, listedEvents.Count);
-            Assert.AreEqual("EventA", listedEvents[0][0].Name);
+            Assert.IsNotNull(page1);
+            Assert.IsNotNull(page2);
+            Assert.IsNotNull(page3);
+            Assert.IsInstanceOfType(page4, typeof(NotFoundObjectResult));
+            Assert.AreEqual("EventA", page1[0].Name);
         }
 
         [TestMethod]
@@ -433,12 +447,109 @@ namespace MxcHomework.Tests.Unit.ControllerTests
             var controller = new EventListController(mockContext.Object);
 
             // Act
-            var listedEvents = controller.ListEventsPagedOrdered(1, "Name", false);
+            var page1 = (List<Event>?)controller.ListEventsPagedOrdered(1, 0, "Name", false).Value;
+            var page2 = (List<Event>?)controller.ListEventsPagedOrdered(1, 1, "Name", false).Value;
+            var page3 = (List<Event>?)controller.ListEventsPagedOrdered(1, 2, "Name", false).Value;
+            var page4 = controller.ListEventsPagedOrdered(1, 3, "Name", false);
 
             // Assert
-            Assert.IsNotNull(listedEvents);
-            Assert.AreEqual(3, listedEvents.Count);
-            Assert.AreEqual("EventC", listedEvents[0][0].Name);
+            Assert.IsNotNull(page1);
+            Assert.IsNotNull(page2);
+            Assert.IsNotNull(page3);
+            Assert.IsInstanceOfType(page4, typeof(NotFoundObjectResult));
+            Assert.AreEqual("EventC", page1[0].Name);
+        }
+
+        [TestMethod]
+        public void TestPageCount()
+        {
+            // Arrange
+
+            var event1 = new Event
+            {
+                Id = 0,
+                Name = "EventA",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 100
+            };
+            var event2 = new Event
+            {
+                Id = 0,
+                Name = "EventB",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 300
+            };
+
+            var event3 = new Event
+            {
+                Id = 0,
+                Name = "EventC",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 200
+            };
+
+            var events = new List<Event> { event1, event2, event3 };
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
+
+            var mockContext = new Mock<IMxcHomeworkContext>();
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
+
+            var controller = new EventListController(mockContext.Object);
+
+            // Act
+            var pageCount = controller.GetPageCount(1);
+
+            // Assert
+            Assert.AreEqual(3, pageCount);
+        }
+
+        [TestMethod]
+        public void TestPageCountForPageSize2()
+        {
+            // Arrange
+
+            var event1 = new Event
+            {
+                Id = 0,
+                Name = "EventA",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 100
+            };
+            var event2 = new Event
+            {
+                Id = 0,
+                Name = "EventB",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 300
+            };
+
+            var event3 = new Event
+            {
+                Id = 0,
+                Name = "EventC",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 200
+            };
+
+            var events = new List<Event> { event1, event2, event3 };
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
+
+            var mockContext = new Mock<IMxcHomeworkContext>();
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
+
+            var controller = new EventListController(mockContext.Object);
+
+            // Act
+            var pageCount = controller.GetPageCount(2);
+
+            // Assert
+            Assert.AreEqual(2, pageCount);
         }
     }
 }

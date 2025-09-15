@@ -290,11 +290,26 @@ namespace MxcHomework.Tests.Unit.DataTests
             var lister = new EventLister(mockContext.Object);
 
             // Act
-            var listedEvents = lister.ListEventsPaged(1);
+            var page1 = lister.ListEventsPaged(1, 0);
+            var page2 = lister.ListEventsPaged(1, 1);
+            var page3 = lister.ListEventsPaged(1, 2);
+
+            bool outOfRangeExceptionThrown = false;
+
+            try
+            {
+                lister.ListEventsPaged(1, 3);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                outOfRangeExceptionThrown = true;
+            }
 
             // Assert
-            Assert.IsNotNull(listedEvents);
-            Assert.AreEqual(3, listedEvents.Count);
+            Assert.IsNotNull(page1);
+            Assert.IsNotNull(page2);
+            Assert.IsNotNull(page3);
+            Assert.IsTrue(outOfRangeExceptionThrown);
         }
 
         [TestMethod]
@@ -337,13 +352,22 @@ namespace MxcHomework.Tests.Unit.DataTests
             var lister = new EventLister(mockContext.Object);
 
             // Act
-            var listedEvents = lister.ListEventsPaged(2);
+            bool outOfRangeExceptionThrown = false;
+            var page1 = lister.ListEventsPaged(2, 0);
+            var page2 = lister.ListEventsPaged(2, 1);
+            try
+            {
+                lister.ListEventsPaged(2, 2);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                outOfRangeExceptionThrown = true;
+            }
 
             // Assert
-            Assert.IsNotNull(listedEvents);
-            Assert.AreEqual(2, listedEvents.Count);
-            Assert.AreEqual(2, listedEvents[0].Count);
-            Assert.AreEqual(1, listedEvents[1].Count);
+            Assert.IsNotNull(page1);
+            Assert.IsNotNull(page2);
+            Assert.IsTrue(outOfRangeExceptionThrown);
         }
 
         [TestMethod]
@@ -386,12 +410,26 @@ namespace MxcHomework.Tests.Unit.DataTests
             var lister = new EventLister(mockContext.Object);
 
             // Act
-            var listedEvents = lister.ListEventsPaged(1, "Name");
+            bool outOfRangeExceptionThrown = false;
+            var page1 = lister.ListEventsPaged(1, 0, "Name");
+            var page2 = lister.ListEventsPaged(1, 1, "Name");
+            var page3 = lister.ListEventsPaged(1, 2, "Name");
+
+            try
+            {
+                var page4 = lister.ListEventsPaged(1, 3, "Name");
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                outOfRangeExceptionThrown = true;
+            }
 
             // Assert
-            Assert.IsNotNull(listedEvents);
-            Assert.AreEqual(3, listedEvents.Count);
-            Assert.AreEqual("EventA", listedEvents[0][0].Name);
+            Assert.IsNotNull(page1);
+            Assert.IsNotNull(page2);
+            Assert.IsNotNull(page3);
+            Assert.IsTrue(outOfRangeExceptionThrown);
+            Assert.AreEqual("EventA", page1[0].Name);
         }
 
         [TestMethod]
@@ -434,12 +472,119 @@ namespace MxcHomework.Tests.Unit.DataTests
             var lister = new EventLister(mockContext.Object);
 
             // Act
-            var listedEvents = lister.ListEventsPaged(1, "Name", false);
+            bool outOfRangeExceptionThrown = false;
+            var page1 = lister.ListEventsPaged(1, 0, "Name", false);
+            var page2 = lister.ListEventsPaged(1, 1, "Name", false);
+            var page3 = lister.ListEventsPaged(1, 2, "Name", false);
+
+            try
+            {
+                lister.ListEventsPaged(1, 3, "Name", false);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                outOfRangeExceptionThrown = true;
+            }
 
             // Assert
-            Assert.IsNotNull(listedEvents);
-            Assert.AreEqual(3, listedEvents.Count);
-            Assert.AreEqual("EventC", listedEvents[0][0].Name);
+            Assert.IsNotNull(page1);
+            Assert.IsNotNull(page2);
+            Assert.IsNotNull(page3);
+            Assert.IsTrue(outOfRangeExceptionThrown);
+            Assert.AreEqual("EventC", page1[0].Name);
+        }
+
+        [TestMethod]
+        public void TestPageCount()
+        {
+            // Arrange
+
+            var event1 = new Event
+            {
+                Id = 0,
+                Name = "EventA",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 100
+            };
+            var event2 = new Event
+            {
+                Id = 0,
+                Name = "EventB",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 300
+            };
+
+            var event3 = new Event
+            {
+                Id = 0,
+                Name = "EventC",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 200
+            };
+
+            var events = new List<Event> { event1, event2, event3 };
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
+
+            var mockContext = new Mock<IMxcHomeworkContext>();
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
+
+            var lister = new EventLister(mockContext.Object);
+
+            // Act
+            var pageCount = lister.GetPageCount(1);
+
+            // Assert
+            Assert.AreEqual(3, pageCount);
+        }
+
+        [TestMethod]
+        public void TestPageCountForPageSize2()
+        {
+            // Arrange
+
+            var event1 = new Event
+            {
+                Id = 0,
+                Name = "EventA",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 100
+            };
+            var event2 = new Event
+            {
+                Id = 0,
+                Name = "EventB",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 300
+            };
+
+            var event3 = new Event
+            {
+                Id = 0,
+                Name = "EventC",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 200
+            };
+
+            var events = new List<Event> { event1, event2, event3 };
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
+
+            var mockContext = new Mock<IMxcHomeworkContext>();
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
+
+            var lister = new EventLister(mockContext.Object);
+
+            // Act
+            var pageCount = lister.GetPageCount(2);
+
+            // Assert
+            Assert.AreEqual(2, pageCount);
         }
     }
 }
+
