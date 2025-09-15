@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MxcHomework.Tests", "MxcHom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MxcHomework.Database", "MxcHomework.Database\MxcHomework.Database.csproj", "{B2312B72-A525-4463-9E04-8FB6A39D7873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MxcHomework.Data", "MxcHomework.Data\MxcHomework.Data.csproj", "{4A21E68D-E144-4987-8948-E22E50BD8749}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MxcHomework.Data", "MxcHomework.Data\MxcHomework.Data.csproj", "{4A21E68D-E144-4987-8948-E22E50BD8749}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

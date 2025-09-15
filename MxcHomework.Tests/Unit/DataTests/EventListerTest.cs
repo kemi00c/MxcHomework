@@ -493,6 +493,98 @@ namespace MxcHomework.Tests.Unit.DataTests
             Assert.IsTrue(outOfRangeExceptionThrown);
             Assert.AreEqual("EventC", page1[0].Name);
         }
+
+        [TestMethod]
+        public void TestPageCount()
+        {
+            // Arrange
+
+            var event1 = new Event
+            {
+                Id = 0,
+                Name = "EventA",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 100
+            };
+            var event2 = new Event
+            {
+                Id = 0,
+                Name = "EventB",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 300
+            };
+
+            var event3 = new Event
+            {
+                Id = 0,
+                Name = "EventC",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 200
+            };
+
+            var events = new List<Event> { event1, event2, event3 };
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
+
+            var mockContext = new Mock<IMxcHomeworkContext>();
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
+
+            var lister = new EventLister(mockContext.Object);
+
+            // Act
+            var pageCount = lister.GetPageCount(1);
+
+            // Assert
+            Assert.AreEqual(3, pageCount);
+        }
+
+        [TestMethod]
+        public void TestPageCountForPageSize2()
+        {
+            // Arrange
+
+            var event1 = new Event
+            {
+                Id = 0,
+                Name = "EventA",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 100
+            };
+            var event2 = new Event
+            {
+                Id = 0,
+                Name = "EventB",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 300
+            };
+
+            var event3 = new Event
+            {
+                Id = 0,
+                Name = "EventC",
+                Location = "TestLocation",
+                Country = "TestCountry",
+                Capacity = 200
+            };
+
+            var events = new List<Event> { event1, event2, event3 };
+            var mockDbSet = Helper.GetQueryableMockDbSet(events);
+
+            var mockContext = new Mock<IMxcHomeworkContext>();
+            mockContext.Setup(mock => mock.Events).Returns(() => mockDbSet.Object);
+
+            var lister = new EventLister(mockContext.Object);
+
+            // Act
+            var pageCount = lister.GetPageCount(2);
+
+            // Assert
+            Assert.AreEqual(2, pageCount);
+        }
     }
 }
 

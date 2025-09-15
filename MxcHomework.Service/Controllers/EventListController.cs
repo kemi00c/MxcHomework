@@ -56,5 +56,12 @@ namespace MxcHomework.Service.Controllers
                 return NotFound(ex.ToString());
             }
         }
+
+        [HttpGet("GetPageCount")]
+        public int GetPageCount(int pageSize)
+        {
+            var lister = new EventLister(_context);
+            return lister.GetPageCount(pageSize);
+        }
     }
 }

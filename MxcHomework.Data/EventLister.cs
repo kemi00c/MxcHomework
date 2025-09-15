@@ -108,5 +108,16 @@ namespace MxcHomework.Data
 
             return pages[page];
         }
+
+
+        /// <summary>
+        /// Get the number of pages of the paged event list with the provided page size
+        /// </summary>
+        /// <param name="pageSize">The page size</param>
+        /// <returns></returns>
+        public int GetPageCount(int pageSize)
+        {
+            return (int)Math.Ceiling(_context.Events.Count() / (double)pageSize);
+        }
     }
 }
