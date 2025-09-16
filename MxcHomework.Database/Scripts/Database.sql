@@ -24,7 +24,8 @@ CREATE DATABASE "MxcHomework"
     LOCALE_PROVIDER = 'libc'
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
+    IS_TEMPLATE = False
+    TEMPLATE template0;
 
 \c "MxcHomework"
 
