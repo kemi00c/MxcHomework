@@ -41,9 +41,6 @@ CREATE SEQUENCE IF NOT EXISTS public."Events_Id_seq"
     CACHE 1;
 
 ALTER SEQUENCE public."Events_Id_seq"
-    OWNED BY public."Events"."Id";
-
-ALTER SEQUENCE public."Events_Id_seq"
     OWNER TO "MxcHomeworkRole";
 
 -- Table: public.Events
@@ -64,3 +61,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public."Events"
     OWNER to "MxcHomeworkRole";
+
+ALTER SEQUENCE public."Events_Id_seq"
+    OWNED BY public."Events"."Id";
