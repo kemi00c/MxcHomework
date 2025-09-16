@@ -19,12 +19,29 @@ CREATE DATABASE "MxcHomework"
     WITH
     OWNER = "MxcHomeworkRole"
     ENCODING = 'UTF8'
-    LC_COLLATE = 'English_United States.1252'
-    LC_CTYPE = 'English_United States.1252'
+    LC_COLLATE = 'en_US.UTF-8'
+    LC_CTYPE = 'en_US.UTF-8'
     LOCALE_PROVIDER = 'libc'
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
+    IS_TEMPLATE = False
+    TEMPLATE template0;
+
+\c "MxcHomework"
+
+-- SEQUENCE: public.Events_Id_seq
+
+-- DROP SEQUENCE IF EXISTS public."Events_Id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS public."Events_Id_seq"
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER SEQUENCE public."Events_Id_seq"
+    OWNER TO "MxcHomeworkRole";
 
 -- Table: public.Events
 
@@ -44,3 +61,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public."Events"
     OWNER to "MxcHomeworkRole";
+
+ALTER SEQUENCE public."Events_Id_seq"
+    OWNED BY public."Events"."Id";
