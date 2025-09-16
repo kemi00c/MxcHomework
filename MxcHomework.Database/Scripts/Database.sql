@@ -26,6 +26,25 @@ CREATE DATABASE "MxcHomework"
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
 
+\c "MxcHomework"
+
+-- SEQUENCE: public.Events_Id_seq
+
+-- DROP SEQUENCE IF EXISTS public."Events_Id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS public."Events_Id_seq"
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER SEQUENCE public."Events_Id_seq"
+    OWNED BY public."Events"."Id";
+
+ALTER SEQUENCE public."Events_Id_seq"
+    OWNER TO "MxcHomeworkRole";
+
 -- Table: public.Events
 
 -- DROP TABLE IF EXISTS public."Events";
