@@ -1,5 +1,42 @@
 # MxcHomework
 
+## Overview
+
+This project contains a web API to display and handle events.
+
+## Installation
+
+PostgreSQL 17 must be installed on the local machine, listening on port 5432. To create the database, execute the script from the project's root directory, using the following command:
+```bash
+$ psql -h localhost -U postgres -f "./MxcHomework.Database/Scripts/Database.sql"
+```
+
+For building, testing, and running the web API, .NET Core SDK version 8.0 has to be installed on the local machine.
+
+## Building and testing
+
+To build the project, execute the following command from the project's root directory:
+
+```bash
+$ dotnet build
+```
+
+To run the unit tests execute the following command from the project's root directory:
+
+```bash
+$ dotnet test
+```
+
+## Running
+
+To start the web API run the following command from the project's root directory:
+
+```bash
+$ dotnet run --project ./MxcHomework.Service --launch-profile https
+```
+
+A simple web UI is created in simple HTML and JavaScript, in the MxcHomework.Ui folder. The website can be hosted in a local developer server (for example Live Server in Visual Studio Code), and must listen at port 5500, because the API's CORS configuration.
+
 ## Database
 
 The MxcHomework.Database project contains the database layer of the application, with the EntityFramework bindings.
